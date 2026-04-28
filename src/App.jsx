@@ -1,19 +1,14 @@
 import { FaBacteria } from 'react-icons/fa'
 import './App.css'
 
-function App() {
+import React from 'react'
+import Product from './component/Product'
 
+const App = () => {
   return (
-    <>
-      <section id="center">
-        <h1 class="text-3xl font-bold underline">
-          Hello world! <FaBacteria />
-        </h1>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+    <div>
+      <Product/>
+    </div>
   )
 }
 
