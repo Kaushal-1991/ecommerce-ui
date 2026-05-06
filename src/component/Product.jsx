@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
 import ProductCard from './ProductCard';
 import { FaExclamationTriangle } from 'react-icons/fa';
 import ProductCardViewModel from './ProductViewModal';
@@ -6,85 +6,98 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from '../store/actions';
 
 const Product = () => {
-  const isLoading = false;
-  const errorMessage = "";
 
-  const {products} = useSelector(
-      (state) => state.products
-  );
+    const { isLoading, errorMessage } = useSelector(
+        (state) => state.errors
+    );
 
-  const dispatch = useDispatch();
+    const { products } = useSelector(
+        (state) => state.products
+    );
 
-  useEffect(() => {
-    dispatch(fetchProducts())
-  },[dispatch]);
-//   const products = [
-// {
-//       productId: 652,
-//       productName: "Iphone Xs max",
-//       image: "https://placehold.co/600x400",
-//       description: "Experience the latest in mobile technology with advanced cameras, powerful processing, and an all-day battery.",
-//       quantity: 10,
-//       price: 1450.0,
-//       discount: 10.0,
-//       specialPrice: 1305.0,
-//     },
-//     {
-//       productId: 654,
-//       productName: "MacBook Air M2s",
-//       image: "https://placehold.co/600x400",
-//       description: "Ultra-thin laptop with Apple's M2 chip, providing fast performance in a lightweight, portable design.",
-//       quantity: 0,
-//       price: 2550.0,
-//       discount: 20.0,
-//       specialPrice: 2040.0,
-//     },
-//     {
-//       productId: 632,
-//       productName: "Samsung Altra 29",
-//       image: "https://placehold.co/600x400",
-//       description: "Ultra-thin laptop with Apple's M2 chip, providing fast performance in a lightweight, portable design.",
-//       quantity: 0,
-//       price: 2888.0,
-//       discount: 10.0,
-//       specialPrice: 2302.0,
-//     },
-//      {
-//       productId: 912,
-//       productName: "Nokia Mobile 29",
-//       image: "https://placehold.co/600x400",
-//       description: "Ultra-thin laptop with Apple's M2 chip, providing fast performance in a lightweight, portable design.",
-//       quantity: 4,
-//       price: 1888.0,
-//       discount: 10.0,
-//       specialPrice: 1302.0,
-//     }
-// ];
-  return (
-    <div className="lg:px-4 sm:px-8 px-4 py-14 2xl:w-[90%] 2xl:mx-auto">
-        {
-            isLoading ? (
-                <p>It is loading ....</p>
-            ) : errorMessage ? (
-                <div className='flex justify-center  items-center h-55'><FaExclamationTriangle className='text-slate-800 text-3xl mr-2'/>
-                    <span className='text-slate-800 text-lg font-medium'>
-                        {errorMessage}
-                    </span>
-                </div>
-            ) : (
-                <div className = "min-h-175">
-                    <div className="pb-6 pt-14 grid 2xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 gap-y-6 gap-x-6">
-                        {products &&
-                         products.map((item,i) => <ProductCard key={i} {...item} />
-                        
-                        )}
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+
+        dispatch(fetchProducts());
+
+    }, [dispatch]);
+
+    return (
+
+        <div className="lg:px-4 sm:px-8 px-4 py-14 2xl:w-[90%] 2xl:mx-auto">
+
+            {
+                isLoading ? (
+
+                    <div className="flex justify-center items-center min-h-[500px]">
+
+                        <div className="w-16 h-16 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin">
+                        </div>
+
                     </div>
-                </div>
-            )
-        }
-        
-    </div>
-  )
-}
 
-export default Product
+                ) : errorMessage ? (
+
+                    <div className="flex justify-center items-center min-h-[500px] px-4">
+
+                        <div className="bg-white shadow-2xl rounded-3xl p-10 max-w-md w-full text-center border border-red-100">
+
+                            <div className="flex justify-center">
+
+                                <div className="bg-red-100 p-5 rounded-full">
+
+                                    <FaExclamationTriangle className="text-red-500 text-5xl" />
+
+                                </div>
+
+                            </div>
+
+                            <h1 className="text-3xl font-bold text-gray-800 mt-6">
+                                Oops!
+                            </h1>
+
+                            <p className="text-gray-500 mt-3 text-lg">
+                                Something went wrong while fetching products.
+                            </p>
+
+                            <div className="mt-5 bg-red-50 text-red-600 px-4 py-3 rounded-xl text-sm font-medium break-words">
+                                {errorMessage}
+                            </div>
+
+                            <button
+                                onClick={() => dispatch(fetchProducts())}
+                                className="mt-8 bg-blue-600 hover:bg-blue-700 transition-all duration-300 text-white px-6 py-3 rounded-xl font-semibold shadow-lg"
+                            >
+                                Retry Again
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                ) : (
+
+                    <div className="min-h-175">
+
+                        <div className="pb-6 pt-14 grid 2xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 gap-y-6 gap-x-6">
+
+                            {
+                                products &&
+                                products.map((item, i) => (
+                                    <ProductCard key={i} {...item} />
+                                ))
+                            }
+
+                        </div>
+
+                    </div>
+
+                )
+            }
+
+        </div>
+    );
+};
+
+export default Product;
