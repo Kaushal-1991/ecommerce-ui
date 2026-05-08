@@ -4,6 +4,7 @@ import { FaExclamationTriangle } from 'react-icons/fa';
 import ProductCardViewModel from './ProductViewModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from '../store/actions';
+import Filter from './Filter';
 
 const Product = () => {
 
@@ -26,7 +27,7 @@ const Product = () => {
     return (
 
         <div className="lg:px-4 sm:px-8 px-4 py-14 2xl:w-[90%] 2xl:mx-auto">
-
+            <Filter />
             {
                 isLoading ? (
 
